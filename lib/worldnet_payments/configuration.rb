@@ -12,6 +12,14 @@ OpenAPI Generator version: 5.1.1
 
 module WorldnetPayments
   class Configuration
+    # Server indexes in @see `server_settings`
+    PROD_SERVER_INDEX = 0
+    SANDBOX_SERVER_INDEX = 1
+
+    # Host settings
+    PROD_HOST = 'payments.worldnettps.com'
+    SANDBOX_HOST = 'testpayments.worldnettps.com'
+
     # Defines url scheme
     attr_accessor :scheme
 
@@ -139,7 +147,7 @@ module WorldnetPayments
 
     def initialize
       @scheme = 'https'
-      @host = 'testpayments.worldnettps.com'
+      @host = 'payments.worldnettps.com'
       @base_path = '/merchant'
       @server_index = 0
       @server_operation_index = {}
@@ -169,6 +177,18 @@ module WorldnetPayments
 
     def configure
       yield(self) if block_given?
+    end
+
+    # Set the Worldnet environment to use, production or sandbox
+    # @param [String] env  Either 'sandbox' or 'prod'
+    def set_env(env)
+      if env == 'sandbox'
+        @server_index = SANDBOX_SERVER_INDEX
+        @host = SANDBOX_HOST
+      else
+        @server_index = PROD_SERVER_INDEX
+        @host = PROD_HOST
+      end
     end
 
     def scheme=(scheme)
@@ -237,7 +257,11 @@ module WorldnetPayments
     def server_settings
       [
         {
-          url: "https://testpayments.worldnettps.com/merchant",
+          url: "https://#{PROD_HOST}/merchant",
+          description: 'Production Server'
+        },
+        {
+          url: "https://#{SANDBOX_HOST}/merchant",
           description: "Sandbox Server",
         }
       ]
