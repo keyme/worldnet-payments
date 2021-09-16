@@ -109,6 +109,7 @@ module WorldnetPayments
         :ssl_verifyhost => _verify_ssl_host,
         :sslcert => @config.cert_file,
         :sslkey => @config.key_file,
+        :forbid_reuse => @config.curl_forbid_reuse,
         :verbose => @config.debugging
       }
 
