@@ -134,6 +134,13 @@ module WorldnetPayments
     # Client private key file (for client certificate)
     attr_accessor :key_file
 
+    ### Curl option
+    # Forbid connection reuse
+    # Default to true
+    #
+    # @return [true, false]
+    attr_accessor :curl_forbid_reuse
+
     # Set this to customize parameters encoding of array parameter with multi collectionFormat.
     # Default to nil.
     #
@@ -162,6 +169,7 @@ module WorldnetPayments
       @params_encoding = nil
       @cert_file = nil
       @key_file = nil
+      @curl_forbid_reuse = true
       @debugging = false
       @inject_format = false
       @force_ending_format = false
