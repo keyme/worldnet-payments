@@ -46,7 +46,7 @@ module WorldnetPayments
       if @message.nil?
         msg = "Error message: the server returns an error"
       else
-        msg = @message
+        msg = @message.to_s
       end
 
       msg += "\nHTTP status code: #{code}" if code
